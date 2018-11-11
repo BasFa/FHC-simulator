@@ -41,7 +41,7 @@ public class ApproachesComparison {
 			ExponentialDistribution initTaskF;
 			ExponentialDistribution detectFaceTaskF;
 			ExponentialDistribution tasksDataFacerec;
-			
+			//Navigator application settings
 			ExponentialDistribution controlTaskN;
 			ExponentialDistribution mapsTaskN;
 			ExponentialDistribution trafficTaskN;
@@ -56,10 +56,10 @@ public class ApproachesComparison {
 	    	ApproachResults[][] allApproachResults= new ApproachResults[pole.length][nmbOfApproaches];
 	    	
 	    	int[][][] handoffs = new int[pole.length][nmbOfApproaches][nmbOfTasks.length];
-	    	double[][][] appExeTime = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
+	    	double[][][] appRT = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
 	    	double[][][] monetaryTimeCost = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
 	    	double[][][] handoffsAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; 
-	    	double[][][] appExeTimeAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
+	    	double[][][] appRTaverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
 	    	double[][][] monetaryTimeCostAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
 	    	for(int p = 0; p < pole.length; p++)
 			{
@@ -67,7 +67,7 @@ public class ApproachesComparison {
 		    	{   for (int t = 0; t < nmbOfTasks.length; t++)
 			    	{
 		    			handoffs[p][a][t] = 0;
-		    			appExeTime[p][a][t] = 0;
+		    			appRT[p][a][t] = 0;
 		    			monetaryTimeCost[p][a][t] = 0;
 			    	}
 			    }
@@ -76,7 +76,7 @@ public class ApproachesComparison {
 			{
 		    	for(int a = 0; a < nmbOfApproaches; a++)
 		    	{ 
-		    		allApproachResults[p][a] =  new ApproachResults(handoffs[p][a], appExeTime[p][a], monetaryTimeCost[p][a] );
+		    		allApproachResults[p][a] =  new ApproachResults(handoffs[p][a], appRT[p][a], monetaryTimeCost[p][a] );
 		    	}
 			}
 	    		    
@@ -343,7 +343,7 @@ public class ApproachesComparison {
 			    	{   for (int t = 0; t < nmbOfTasks.length; t++)
 				    	{
 			    			handoffsAverage[p][a][t] = (double)((double)allApproachResults[p][a].handoffs[t] / (double)iteration);	 
-			    			appExeTimeAverage[p][a][t] = (double)((double)allApproachResults[p][a].appRT[t] / (double)iteration);
+			    			appRTaverage[p][a][t] = (double)((double)allApproachResults[p][a].appRT[t] / (double)iteration);
 			    			monetaryTimeCostAverage[p][a][t] = (double)((double)allApproachResults[p][a].monetaryCost[t] / (double)iteration);
 				    	}
 				    }
@@ -353,7 +353,7 @@ public class ApproachesComparison {
 					for(int r = 1; r < nmbOfApproaches; r++) 
 					{
 						ResultsEvaluation.inform(approach[r], nodesCreated, iteration);
-						ResultsEvaluation.evaluate(appExeTimeAverage[p][0],  monetaryTimeCostAverage[p][0], handoffsAverage[p][0], nmbOfTasks.length, handoffsAverage[p][r], appExeTimeAverage[p][r],  monetaryTimeCostAverage[p][r]);
+						ResultsEvaluation.evaluate(appRTaverage[p][0],  monetaryTimeCostAverage[p][0], handoffsAverage[p][0], nmbOfTasks.length, handoffsAverage[p][r], appRTaverage[p][r],  monetaryTimeCostAverage[p][r]);
 					}
 				}
 			  }
