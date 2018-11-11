@@ -89,7 +89,7 @@ public class AlwaysHandoff {
     		 
     		if( (int)measuredRT > desiredRT[i]) //always perform handoff when RT is deteriorated
 	    	{    			
-    		 	//handoff is needed therefore discover new nodes in surrounding 
+    		 	//handoff is needed, therefore discover new nodes in surrounding 
     			lowerBound = higherBound ; //iterates through newly discovered nodes
     			higherBound = higherBound + newlyDiscoveredNodes;  //iterates through newly discovered nodes
     		    		

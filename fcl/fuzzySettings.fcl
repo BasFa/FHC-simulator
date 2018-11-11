@@ -1,9 +1,6 @@
 // Block definition (there may be more than one block per file)
 FUNCTION_BLOCK nodeSelection
 
-//changed values of bandwidth in range 5-30 Mbps what is usual wifi range
-
-
 // Define input variables
 VAR_INPUT
     bandwidth : REAL;
@@ -17,7 +14,7 @@ VAR_OUTPUT
 END_VAR
 
 // Fuzzify input variable 'bandwidth'
-FUZZIFY bandwidth   //stavila sam cpu da je kao i bw od 5 do 30. A.A za typical wifi bandwidth kaze 5-30mbps
+FUZZIFY bandwidth   
     TERM low := gauss 5 7.646  ; 
     TERM medium := gauss 27.5 7.646  ;
     TERM high := gauss 50 7.646 ;
@@ -32,8 +29,7 @@ FUZZIFY latency
 END_FUZZIFY
 
 
-
-// Fuzzify input variable 'cpu'  //stavila sam cpu da je kao i bw od 5 do 30. VdM je radio s 15 MIPS.   
+// Fuzzify input variable 'cpu'  
 FUZZIFY cpu 
     TERM low := gauss 15 4.247; 
     TERM medium := gauss  27.5 4.247 ;
@@ -41,14 +37,13 @@ FUZZIFY cpu
 END_FUZZIFY
 
 
-
-// Defzzzify output variable 'node'
+// Defuzzify output variable 'node'
 DEFUZZIFY node
-    TERM highly_undesirable := (0,1) (0.25 ,0) ;
-    TERM undesirable := (0,0) (0.25,1) (0.5,0);
-    TERM neutral := (0.25, 0) (0.5,1) (0.75,0);
-	TERM desirable := (0.5, 0) (0.75,1) (1,0);
-    TERM highly_desirable := (0.75,0) (1,1);
+    TERM highly_undesirable := (0, 1) (0.25, 0) ;
+    TERM undesirable := (0, 0) (0.25, 1) (0.5, 0);
+    TERM neutral := (0.25, 0) (0.5, 1) (0.75, 0);
+	TERM desirable := (0.5, 0) (0.75, 1) (1, 0);
+    TERM highly_desirable := (0.75, 0) (1, 1);
     
  // Use 'Center Of Gravity' defuzzification method
     METHOD : COG;

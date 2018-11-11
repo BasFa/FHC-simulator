@@ -15,13 +15,13 @@ public class ApproachesComparison {
 			public static void main(String[] args) throws Exception {
 			System.out.println(" Fuzzy Handoff Controller - Never Handoff - Always Handoff comparison using Facerecognizer and Navigator application models: ");
 		
-			int iteration = 2;
+			int iteration = 1000;  //more iterations = higher statistical significance 
 			int discoveredNodes = 20;	
 			if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
 				discoveredNodes += 1;
 			int nodesCreated = 7000;  
 						
-			int nmbOfTasks[] = {50, 100, 200, 300,  400, 500, 600, 700, 800, 900, 1000};  
+			int nmbOfTasks[] = {200, 500, 1000};  
 			double pole[] = {0.7};  //e.g. {0.3, 0.7, 0.9};
 			int naviData[] = {5, 10, 15}; //MB
 			int facerecData[] = {1, 5}; //1MB, 5MB, ...			
@@ -34,7 +34,7 @@ public class ApproachesComparison {
 			int naviDataInputIndex = 0;
 			
 			int maxNmbOfTasks = 0;
-	    	int indexMaxNmbTask = 0;	
+			int indexMaxNmbTask = 0;	
 					
 			//Facerecognizer application settings
 			ExponentialDistribution findMatchTaskF;
