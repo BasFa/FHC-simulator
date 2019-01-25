@@ -8,8 +8,8 @@ public class EdgeNodeTopology {
 	
 	public static Topology generateNodesTopology(int nodesCreated, int newlyDiscoveredNodes) throws Exception 
 	{
-	    double nodeBandwidth;
-	    double nodeCpu; 
+		double nodeBandwidth;
+		double nodeCpu;
 		double nodeLatency;
 	
 		double cpuWifi3G[] =  new double[nodesCreated];   
@@ -78,21 +78,21 @@ public class EdgeNodeTopology {
 				latParetoWifi[i] = latParetoDistWifi.sample();	
 		}	
 		   	   
-		for(int n = 0; n < nodesCreated/2; n++) //cellular (3G) connection 
-	    {
+		for(int n = 0; n < nodesCreated/2; n++) //cellular (3G) connection
+		{
 			lat3G[n] = G3desiredMeanLatency * latPareto3G[n];
 			bw3G[n] = G3desiredMeanBW * bwPareto3G[n];
-	    }
+		}
 		for(int iCreated = (int)nodesCreated/2; iCreated < nodesCreated; iCreated++) // Wi-Fi connection
-	    {
+		{
 			latWifi[iCreated] = WIFIdesiredMeanLatency * latParetoWifi[iCreated];
 			bwWifi[iCreated] = WIFIdesiredMeanBW * bwParetoWifi[iCreated];
-	    }
+		}
 				
 		for(int i = 0 ; i < nodesCreated; i++ )  // Wi-Fi and cellular (3G) connection 
-    	{ 
+		{ 
 			cpuWifi3G[i] = CPUdesiredMean * cpuPareto[i];
-    	}
+		}
 			
 		if (nodesCreated == 0) {
 	    	System.out.println("There is no discovered node for offloading your task, computation will be done localy or in cloud.");
@@ -108,13 +108,13 @@ public class EdgeNodeTopology {
 	    	{    		
 	    		nodeCpu = CPUdesiredMean * cpuPareto[n];
 	    		if(halfDiscoverd < newlyDiscoveredNodes/2) //cellular (3G) connection 
-				{ 
+	    		{ 
 	        		nodeLatency = lat3G[counter3G];	        		
 		        	nodeBandwidth = bw3G[counter3G];
 		        	counter3G++;
 				}
-				else  // Wi-Fi connection
-				{
+	    		else  // Wi-Fi connection
+	    		{
 					nodeLatency = latWifi[counterWifi];
 					nodeBandwidth = bwWifi[counterWifi];
 		            counterWifi++;
@@ -141,13 +141,13 @@ public class EdgeNodeTopology {
 	
 	public static  Topology initializeTopology(int nodesCreated) throws Exception 
 	{
-		  Topology nodeTopology = new Topology(nodesCreated);
-	      for(int i = 0 ; i < nodesCreated; i++ ) //a parameters collection from the discovered nodes
-	      {  
-	    	  Node nodeTemporarily = new Node(0, 0, 0, 0);  //nodeBandwidth, nodeCpu, nodeLatency, fuzzy value
-	    	  nodeTopology.nodes[i] = nodeTemporarily;
-	      } 
-	      return nodeTopology;
+		Topology nodeTopology = new Topology(nodesCreated);
+		for(int i = 0 ; i < nodesCreated; i++ ) //a parameters collection from the discovered nodes
+		{  
+			Node nodeTemporarily = new Node(0, 0, 0, 0);  //nodeBandwidth, nodeCpu, nodeLatency, fuzzy value
+			nodeTopology.nodes[i] = nodeTemporarily;
+		}
+		return nodeTopology;
 	}
 
 

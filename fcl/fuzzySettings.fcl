@@ -42,7 +42,7 @@ DEFUZZIFY node
     TERM highly_undesirable := (0, 1) (0.25, 0) ;
     TERM undesirable := (0, 0) (0.25, 1) (0.5, 0);
     TERM neutral := (0.25, 0) (0.5, 1) (0.75, 0);
-	TERM desirable := (0.5, 0) (0.75, 1) (1, 0);
+    TERM desirable := (0.5, 0) (0.75, 1) (1, 0);
     TERM highly_desirable := (0.75, 0) (1, 1);
     
  // Use 'Center Of Gravity' defuzzification method
@@ -62,13 +62,13 @@ RULEBLOCK No1
     // Use 'max' accumulation method
     ACCU : MAX;
 
-    RULE 1 : IF bandwidth IS low AND cpu IS low AND latency IS high 
+	RULE 1 : IF bandwidth IS low AND cpu IS low AND latency IS high 
                 THEN node IS highly_undesirable;
 
-    RULE 2 : IF bandwidth IS low AND cpu IS low AND latency IS medium 
+	RULE 2 : IF bandwidth IS low AND cpu IS low AND latency IS medium 
                 THEN node IS highly_undesirable;
 
-    RULE 3 : IF bandwidth IS low AND cpu IS low AND latency IS low 
+	RULE 3 : IF bandwidth IS low AND cpu IS low AND latency IS low 
                 THEN node IS highly_undesirable;
 				
 	RULE 4 : IF bandwidth IS low AND cpu IS medium AND latency IS high 

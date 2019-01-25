@@ -12,16 +12,16 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 public class ApproachesComparison {
 			//Comparing the proposed Fuzzy approach with Greedy and Nearest for a Navigator application
-			public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 			System.out.println(" Fuzzy Handoff Controller - Never Handoff - Always Handoff comparison using Facerecognizer and Navigator application models: ");
 		
-			int iteration = 1000;  //more iterations = higher statistical significance 
+			int iteration = 30000;  //more iterations = higher statistical significance 
 			int discoveredNodes = 20;	
 			if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
 				discoveredNodes += 1;
-			int nodesCreated = 7000;  
+			int nodesCreated = 6000;  
 						
-			int nmbOfTasks[] = {200, 500, 1000};  
+			int nmbOfTasks[] = {50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};  
 			double pole[] = {0.7};  //e.g. {0.3, 0.7, 0.9};
 			int naviData[] = {5, 10, 15}; //MB
 			int facerecData[] = {1, 5}; //1MB, 5MB, ...			
@@ -62,7 +62,7 @@ public class ApproachesComparison {
 	    	double[][][] appRTaverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
 	    	double[][][] monetaryTimeCostAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
 	    	for(int p = 0; p < pole.length; p++)
-			{
+	    	{
 		    	for(int a = 0; a < nmbOfApproaches; a++)
 		    	{   for (int t = 0; t < nmbOfTasks.length; t++)
 			    	{
@@ -71,7 +71,7 @@ public class ApproachesComparison {
 		    			monetaryTimeCost[p][a][t] = 0;
 			    	}
 			    }
-			}
+	    	}
 	    	for(int p = 0; p < pole.length; p++)
 			{
 		    	for(int a = 0; a < nmbOfApproaches; a++)
@@ -90,7 +90,7 @@ public class ApproachesComparison {
 	    	detectFaceTaskF = new ExponentialDistribution(8); 
 		
 	    	try{	
-				for(int i = 1; i <= iteration ; i++)
+	    		for(int i = 1; i <= iteration ; i++)
 				{	
 
 					System.out.println(" Generating an edge node topology... ");		
@@ -219,8 +219,9 @@ public class ApproachesComparison {
 					maxNmbOfTasks = 0;
 			    	indexMaxNmbTask = 0;	  
 			    	for(int l = 0; l < nmbOfTasks.length; l++) //max number of offloadable tasks search
-				    {
-			    		if(maxNmbOfTasks < nmbOfTasks[l]) {
+			    	{
+			    		if(maxNmbOfTasks < nmbOfTasks[l]) 
+			    		{
 			    			maxNmbOfTasks = nmbOfTasks[l];
 			    			indexMaxNmbTask = l;
 			    		}
@@ -239,7 +240,7 @@ public class ApproachesComparison {
 			    	int rangeHigherBound = 1;	    	 	
 			    	double rangeSize = 2; //calculate as: (rangeSizeLowerBound*rangeSizeLowerBound) + (rangeSizeHigherBound*rangeSizeHigherBound)
 			    	for(int n = 0; n < nodesCreated; n++) 
-				    {
+			    	{
 			    		rangeLowerBound = -1;
 			    		rangeHigherBound = 1;	
 			    		rangeSize = 2; 
@@ -307,7 +308,7 @@ public class ApproachesComparison {
 			    	{
 			    		currentApproach = 0;
 			    		oneApproachResults = FuzzyHandoffController.execution(nodesCreated, app, nodeTopologySetup,  pole[p], desiredRT, changeBW, changeCPU, changeLAT, discoveredNodes, nmbOfTasks, indexMaxNmbTask);
-						for (int t= 0 ; t < nmbOfTasks.length ; t++)
+			    		for (int t= 0 ; t < nmbOfTasks.length ; t++)
 						{
 							allApproachResults[p][currentApproach].handoffs[t] = allApproachResults[p][currentApproach].handoffs[t] + oneApproachResults.handoffs[t];
 							allApproachResults[p][currentApproach].appRT[t] = allApproachResults[p][currentApproach].appRT[t] + oneApproachResults.appRT[t];
@@ -340,7 +341,8 @@ public class ApproachesComparison {
 				for(int p = 0; p < pole.length; p++)
 				{
 					for(int a = 0; a < nmbOfApproaches; a++)
-			    	{   for (int t = 0; t < nmbOfTasks.length; t++)
+					{   
+						for (int t = 0; t < nmbOfTasks.length; t++)
 				    	{
 			    			handoffsAverage[p][a][t] = (double)((double)allApproachResults[p][a].handoffs[t] / (double)iteration);	 
 			    			appRTaverage[p][a][t] = (double)((double)allApproachResults[p][a].appRT[t] / (double)iteration);
@@ -358,7 +360,7 @@ public class ApproachesComparison {
 				}
 			  }
 	     catch(ArrayIndexOutOfBoundsException e){
-	        System.out.println(" Please, make sure the number of created nodes in topology is high enough to cover Always Handoff approach. ");
+	    	 System.out.println(" Please, make sure the number of created nodes in topology is high enough to cover Always Handoff approach. ");
 	     }
 	     catch(Exception e){
 	        System.out.println(" Please try again. ");

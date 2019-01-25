@@ -12,7 +12,7 @@ public class NavigatorApp {
 		//Comparing the proposed Fuzzy approach with Greedy and Nearest for a Navigator application
 		public static void main(String[] args) throws Exception {
 		System.out.println(" Fuzzy - Greedy - Nearest comparison (Q1 Navigator application):");
-				
+				 
 		int iteration = 1000; //100000 //more iterations = higher statistical significance 
 		int discoveredNodes = 20; 
 		if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
@@ -62,7 +62,7 @@ public class NavigatorApp {
 		ExponentialDistribution trafficTask;
 		ExponentialDistribution pathTask;		
 		ExponentialDistribution tasksData;
-			
+		
 		//Exponential distribution generator	
 		controlTask = new ExponentialDistribution(2);  
 		mapsTask = new ExponentialDistribution(3);  
@@ -82,7 +82,7 @@ public class NavigatorApp {
 			System.out.println(" Calculations for " + mapSize[l] + " MB map size. ");
 			for(int i = 0;  i < iteration; i++) 
 			{		
-				for(int offIndex = 0;  offIndex < offloadingTasks + 1; offIndex++) 
+				for(int offIndex = 0; offIndex < offloadingTasks + 1; offIndex++) 
 				{
 					nearestRT[i][offIndex] = 0;
 					fuzzyRT[i][offIndex] = 0;
@@ -148,15 +148,15 @@ public class NavigatorApp {
 				//choosing an edge node and RT calculation for Fuzzy, Greedy and Nearest approach:
 				//Nearest: nearest node = lowest latency
 				nearestNodeSelected = 0;
-				lowestLatency  = nodeTopology.nodes[lowerBound].latency;  //defining some default value to be able to make a comparison				 
+				lowestLatency = nodeTopology.nodes[lowerBound].latency;  //defining some default value to be able to make a comparison				 
 				for(int n = lowerBound; n < higherBound; n++) 
-			    { 
-					 if(lowestLatency > nodeTopology.nodes[n].latency )  //find node with lowest Latency
-			    	{   
+				{ 
+					if(lowestLatency > nodeTopology.nodes[n].latency )  //find node with lowest Latency
+					{   
 						lowestLatency = nodeTopology.nodes[n].latency;
 						nearestNodeSelected = n;
-			    	}	    		
-			    }
+					}
+				}
 				//System.out.println("Index of a node with lowest latency is: "  +  nearestNodeSelected);
 				nearestRT[i][totalAppIndex] = 0; //total app RT
 				for(int t = 0; t < offloadingTasks; t++) 
@@ -171,12 +171,12 @@ public class NavigatorApp {
 				highestFuzzyValue  = 0; 			
 				for(int n = lowerBound; n < higherBound; n++) 
 				{ 
-					 if(highestFuzzyValue < nodeTopology.nodes[n].fuzzyValue ) //highest fuzzy value
-			    	{   
+					if(highestFuzzyValue < nodeTopology.nodes[n].fuzzyValue ) //highest fuzzy value
+					{
 						 highestFuzzyValue = nodeTopology.nodes[n].fuzzyValue;
 						 fuzzyNodeSelected = n;
-			    	}	    		
-			    }
+					}
+				}
 				fuzzyRT[i][totalAppIndex] = 0; 
 				for(int t = 0; t < offloadingTasks; t++) 
 				{
@@ -188,13 +188,13 @@ public class NavigatorApp {
 				greedyNodeSelected = 0;
 				highestBW  = 0; 
 				for(int n = lowerBound; n < higherBound; n++) //find node with highest bandwith 
-			    { 
-					 if(highestBW < nodeTopology.nodes[n].bandwidth )  //ako ovdje stavim bw opet dobivam dobre rezultate tj. fuzzy mi bolji ispada.
-			    	{   
+				{ 
+					if(highestBW < nodeTopology.nodes[n].bandwidth )  //ako ovdje stavim bw opet dobivam dobre rezultate tj. fuzzy mi bolji ispada.
+					{
 						 highestBW = nodeTopology.nodes[n].bandwidth;
 						 greedyNodeSelected = n;
-			    	}	    		
-			    }
+					}
+				}
 				
 				greedyRT[i][totalAppIndex] = 0;  
 				for(int t = 0; t < offloadingTasks; t++)
@@ -240,5 +240,5 @@ public class NavigatorApp {
 		}
 
 		System.out.println("end of execution"); 	
-  }
+	}
 }

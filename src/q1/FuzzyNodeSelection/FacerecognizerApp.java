@@ -77,7 +77,7 @@ public class FacerecognizerApp {
 			System.out.println(" Calculations for " + imageSize[l] + " MB image size: ");
 			for(int i = 0;  i < iteration; i++) 
 			{		
-				for(int offIndex = 0;  offIndex < offloadingTasks; offIndex++) 
+				for(int offIndex = 0; offIndex < offloadingTasks; offIndex++) 
 				{
 					nearestRT[i][offIndex] = 0;
 					fuzzyRT[i][offIndex] = 0;
@@ -109,7 +109,7 @@ public class FacerecognizerApp {
 				tasksData =  new ExponentialDistribution(imageSize[l]); 
 				dataSize = tasksData.sample();				
 				int taskIndex = 1; //adding tasks in Application workload 
-				for(int t = 0;  t < offloadingTasks; t++) 
+				for(int t = 0; t < offloadingTasks; t++) 
 				{
 					if(taskIndex == 1)
 					{
@@ -139,14 +139,14 @@ public class FacerecognizerApp {
 				//Nearest: nearest node = lowest latency
 				nearestNodeSelected = 0;
 				lowestLatency = nodesTopology.nodes[lowerBound].latency; //defining some default value to be able to make a comparison			 
-				for(int n = lowerBound; n < higherBound; n++) 
-			    { 
-					 if(lowestLatency > nodesTopology.nodes[n].latency )  //find node with lowest latency 
-			    	{   
+				for(int n = lowerBound; n < higherBound; n++)
+				{ 
+					if(lowestLatency > nodesTopology.nodes[n].latency )  //find node with lowest latency 
+					{
 						lowestLatency = nodesTopology.nodes[n].latency;
-						nearestNodeSelected = n; 
-			    	}	    		
-			    }
+						nearestNodeSelected = n;
+					}	    		
+				}
 				//System.out.println("Index of a node with lowest latency is: "  +  nearestNodeSelected);
 				nearestRT[i][totalAppIndex] = 0; //total app RT
 				for(int t = 0; t < offloadingTasks; t++) 
@@ -160,13 +160,13 @@ public class FacerecognizerApp {
 				fuzzyNodeSelected = 0;
 				highestFuzzyValue  = 0; 			
 				for(int n = lowerBound; n < higherBound; n++)
-			    { 
-					 if(highestFuzzyValue < nodesTopology.nodes[n].fuzzyValue ) //highest fuzzy value
-			    	{   
+				{ 
+					if(highestFuzzyValue < nodesTopology.nodes[n].fuzzyValue ) //highest fuzzy value
+					{	   
 						 highestFuzzyValue = nodesTopology.nodes[n].fuzzyValue;
 						 fuzzyNodeSelected = n; 
-			    	}	    		
-			    }
+					}
+				}
 				
 				fuzzyRT[i][totalAppIndex] = 0; 
 				for(int t = 0; t < offloadingTasks; t++) 
@@ -179,13 +179,13 @@ public class FacerecognizerApp {
 				greedyNodeSelected = 0;
 				highestBW  = 0; 
 				for(int n = lowerBound; n < higherBound; n++) 
-			    { 
-					 if(highestBW < nodesTopology.nodes[n].bandwidth )  //find node with highest bandwidth .
-			    	{   
+				{ 
+					if(highestBW < nodesTopology.nodes[n].bandwidth )  //find node with highest bandwidth .
+					{
 						 highestBW = nodesTopology.nodes[n].bandwidth;
 						 greedyNodeSelected = n;
-			    	}	    		
-			    }
+					}
+				}
 				
 				greedyRT[i][totalAppIndex] = 0;  
 				for(int t = 0; t < offloadingTasks; t++) 
@@ -232,5 +232,5 @@ public class FacerecognizerApp {
 		}
 	
 		System.out.println(" End of simulations "); 	
-  }
+	}
 }
