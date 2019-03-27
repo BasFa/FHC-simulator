@@ -1,8 +1,5 @@
 package simplified.examples;
 
-
-
-
 import q2.utilities.EdgeNodeTopology;
 import simulationModels.Topology;
 

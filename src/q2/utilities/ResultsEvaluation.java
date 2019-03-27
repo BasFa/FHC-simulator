@@ -81,7 +81,7 @@ public class ResultsEvaluation {
 		approachResults += (System.lineSeparator());
 		System.out.println(approachResults);
 		
-		// approachAllResults.write(approachResults);
+		//approachAllResults.write(approachResults);
 		//approachAllResults.close();		
 	}		
 	

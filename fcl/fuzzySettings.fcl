@@ -70,10 +70,10 @@ RULEBLOCK No1
 
 	RULE 3 : IF bandwidth IS low AND cpu IS low AND latency IS low 
                 THEN node IS highly_undesirable;
-				
+
 	RULE 4 : IF bandwidth IS low AND cpu IS medium AND latency IS high 
                 THEN node IS highly_undesirable;
-				
+
 	RULE 5 : IF bandwidth IS low AND cpu IS medium AND latency IS medium 
                 THEN node IS highly_undesirable;
 
@@ -82,25 +82,25 @@ RULEBLOCK No1
 
 	RULE 7 : IF bandwidth IS low AND cpu IS high AND latency IS high 
                 THEN node IS highly_undesirable;
-				
+
 	RULE 8 : IF bandwidth IS low AND cpu IS high AND latency IS medium 
                 THEN node IS undesirable;
-				
+
 	RULE 9 : IF bandwidth IS low AND cpu IS high AND latency IS low 
                 THEN node IS undesirable;
-	
+
 	RULE 10 : IF bandwidth IS medium AND cpu IS low AND latency IS high 
                 THEN node IS undesirable;
 
-    RULE 11 : IF bandwidth IS medium AND cpu IS low AND latency IS medium 
+	RULE 11 : IF bandwidth IS medium AND cpu IS low AND latency IS medium 
                 THEN node IS undesirable;
 
-    RULE 12 : IF bandwidth IS medium AND cpu IS low AND latency IS low 
+	RULE 12 : IF bandwidth IS medium AND cpu IS low AND latency IS low 
                 THEN node IS neutral;
-				
+
 	RULE 13 : IF bandwidth IS medium AND cpu IS medium AND latency IS high 
                 THEN node IS neutral;
-				
+
 	RULE 14 : IF bandwidth IS medium AND cpu IS medium AND latency IS medium 
                 THEN node IS neutral;
 
@@ -109,25 +109,25 @@ RULEBLOCK No1
 
 	RULE 16 : IF bandwidth IS medium AND cpu IS high AND latency IS high 
                 THEN node IS neutral;
-				
+
 	RULE 17 : IF bandwidth IS medium AND cpu IS high AND latency IS medium 
                 THEN node IS desirable;
-				
+
 	RULE 18 : IF bandwidth IS medium AND cpu IS high AND latency IS low 
                 THEN node IS desirable;
 
 	RULE 19 : IF bandwidth IS high AND cpu IS low AND latency IS high 
                 THEN node IS desirable;
 
-    RULE 20 : IF bandwidth IS high AND cpu IS low AND latency IS medium 
+	RULE 20 : IF bandwidth IS high AND cpu IS low AND latency IS medium 
                 THEN node IS desirable;
 
-    RULE 21 : IF bandwidth IS high AND cpu IS low AND latency IS low 
+	RULE 21 : IF bandwidth IS high AND cpu IS low AND latency IS low 
                 THEN node IS highly_desirable;
-				
+
 	RULE 22 : IF bandwidth IS high AND cpu IS medium AND latency IS high 
                 THEN node IS desirable;
-				
+
 	RULE 23 : IF bandwidth IS high AND cpu IS medium AND latency IS medium 
                 THEN node IS highly_desirable;
 
@@ -136,10 +136,10 @@ RULEBLOCK No1
 
 	RULE 25 : IF bandwidth IS high AND cpu IS high AND latency IS high 
                 THEN node IS highly_desirable;
-				
+
 	RULE 26 : IF bandwidth IS high AND cpu IS high AND latency IS medium 
                 THEN node IS highly_desirable;
-				
+
 	RULE 27 : IF bandwidth IS high AND cpu IS high AND latency IS low 
                 THEN node IS highly_desirable;
 

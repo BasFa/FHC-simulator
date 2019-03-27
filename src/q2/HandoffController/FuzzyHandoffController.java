@@ -110,12 +110,12 @@ public class FuzzyHandoffController {
 				lowerBound = higherBound ; //iterates through newly discovered nodes
 				higherBound = higherBound + newlyDiscoveredNodes; //iterates through newly discovered nodes
 				nmbOfDeterioratedTasks = 1;
-				for(int s = lowerBound; s < higherBound; s++) //workload changes affected fuzzy values (FVs), therefore update FVs 
+				for(int s = lowerBound; s < higherBound; s++) //workload changes affect fuzzy values (FVs), therefore update FVs 
 				{
 					nodeTopology.nodes[s].fuzzyValue = FuzzyOutputValue.calculateFuzzyValue(nodeTopology.nodes[s]);  
 				}    
 				double temporarilyHighestFuzzyValue = 0;
-				for(int s = lowerBound; s < higherBound; s++) //find node with best fuzzy value u tom novom rangu otkrivenih
+				for(int s = lowerBound; s < higherBound; s++) //find node with best fuzzy value among new discovered range
 				{
 					if(temporarilyHighestFuzzyValue < nodeTopology.nodes[s].fuzzyValue)
 					{

@@ -1,7 +1,5 @@
 package simplified.examples;
 
-
-
 import q2.utilities.ControlOutput;
 
 public class ControlPoleComparison {
@@ -16,7 +14,7 @@ public class ControlPoleComparison {
 		double nmbOfDeterioratedTasks[] = {0, 0 , 0, 0}; 
 		boolean hasHandoff[] = {false, false, false, false};  
 		double controlThreshold[][] = new double[pole.length][measuredRT.length]; //[0-1]
-		int handoffStartAt[] = {0, 0 , 0, 0}; //after this task number handoff is triggered
+		int handoffStartAt[] = {0, 0 , 0, 0}; //after this task's number handoff is triggered
 		for(int p = 0; p < pole.length; p++) 
 		{ 
 			for(int t = 0; t < measuredRT.length; t++) //measuredRT.length = number of offloaded tasks
@@ -31,12 +29,12 @@ public class ControlPoleComparison {
 			for(int t = 0; t < measuredRT.length; t++) //measuredRT.length = number of offloaded tasks
 			{ 
 				if(t==0)
-					controlerOutput[p][t]  = ControlOutput.calculate(pole[p], desiredRT, measuredRT[t], controlerOutput[p][t]); 
+					controlerOutput[p][t] = ControlOutput.calculate(pole[p], desiredRT, measuredRT[t], controlerOutput[p][t]); 
 				else 
-					controlerOutput[p][t]  = ControlOutput.calculate(pole[p], desiredRT, measuredRT[t], controlerOutput[p][t-1]); 			
+					controlerOutput[p][t] = ControlOutput.calculate(pole[p], desiredRT, measuredRT[t], controlerOutput[p][t-1]); 			
 				
 				
-				if(t!=0 && ((int)measuredRT[t]  > desiredRT) ) 
+				if(t!=0 && ((int)measuredRT[t] > desiredRT) ) 
 				{
 					nmbOfDeterioratedTasks[p]++;    			
 				}
@@ -51,14 +49,14 @@ public class ControlPoleComparison {
 					//handoff triggered, stop execution, compare for the next pole value
 					t = measuredRT.length; 
 					System.out.println(" For a pole " + pole[p] + " handoff is triggered after task nmb " + (handoffStartAt[p]+1) + " with a measured RT: " + measuredRT[handoffStartAt[p]]); 	
-				}    	
+				}
 				
 			}
 		}
 		
 		for(int p = 0; p < pole.length; p++)
 		{ 
-			System.out.println( " Pole: " + pole[p]  + ", nmb of deteriorated tasks:" + (nmbOfDeterioratedTasks[p]-1) + ", handoff trigered: " + hasHandoff[p]); 
+			System.out.println( " Pole: " + pole[p] + ", nmb of deteriorated tasks:" + (nmbOfDeterioratedTasks[p]-1) + ", handoff trigered: " + hasHandoff[p]); 
 			for(int t = 0; t < handoffStartAt[p]+1; t++) //offloaded tasks
 			{
 				System.out.println(" Task number: " + t + "; Control output value:  "  + controlerOutput[p][t] + ",  Control Threshold value:" + controlThreshold[p][t] ); 

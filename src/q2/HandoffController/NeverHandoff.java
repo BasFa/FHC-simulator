@@ -53,7 +53,7 @@ public class NeverHandoff {
 				{
 					taskRT[a] = Offload.measureRT(app[a].tasks[i], nodeTopology.nodes[fuzzyNodeSelected]);
 					totalRT[a] += taskRT[a];
-					handoffTimes[a] = 0;  //never handoff approach therefore handoff never happen    				 
+					handoffTimes[a] = 0;  //never handoff approach therefore handoff never happens
 				}
 			}
 			measuredRT = taskRT[indexMaxNmbTask]; 

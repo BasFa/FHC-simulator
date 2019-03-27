@@ -123,7 +123,7 @@ public class EdgeNodeTopology {
 				if(halfDiscoverd >= newlyDiscoveredNodes)
 					halfDiscoverd = 0;
 				
-	    		Node nodeTemporarly = new Node(nodeBandwidth, nodeCpu, nodeLatency, 0 );  // first set fuzzy values to 0 for all nodes
+	    		Node nodeTemporarly = new Node(nodeBandwidth, nodeCpu, nodeLatency, 0 );  // first set fuzzy values on 0 for all nodes
 	    		nodeTopology.nodes[n] = nodeTemporarly;
 	    	}
 	    	

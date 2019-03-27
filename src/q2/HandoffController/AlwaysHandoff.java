@@ -16,7 +16,7 @@ public class AlwaysHandoff {
 		double highestFuzzyValue  = 0; 
 		int fuzzyNodeSelected = 0;
 		
-		Topology nodeTopology =  EdgeNodeTopology.initializeTopology( nodesCreated); 		
+		Topology nodeTopology =  EdgeNodeTopology.initializeTopology(nodesCreated); 		
 		for(int n = 0; n < nodeTopologySetup.nodes.length ; n++)
 		{
 			nodeTopology.nodes[n].bandwidth = nodeTopologySetup.nodes[n].bandwidth;
@@ -93,7 +93,7 @@ public class AlwaysHandoff {
 				lowerBound = higherBound ; //iterates through newly discovered nodes
 				higherBound = higherBound + newlyDiscoveredNodes;  //iterates through newly discovered nodes
     		    		
-				for(int s = lowerBound; s < higherBound; s++) //workload changes affected fuzzy values (FVs), therefore update FVs 
+				for(int s = lowerBound; s < higherBound; s++) //workload changes affect fuzzy values (FVs), therefore update FVs 
 				{
 					nodeTopology.nodes[s].fuzzyValue = FuzzyOutputValue.calculateFuzzyValue(nodeTopology.nodes[s]);  
 				}    			 
@@ -132,7 +132,7 @@ public class AlwaysHandoff {
 			else {
 				for(int l = 0; l < nmbOfTasks.length; l++)
 				{		
-					if( i == nmbOfTasks[l]-1 && i != nmbOfTasks[indexMaxNmbTask]-1 ) //no handoff performed in after observed number of tasks 
+					if( i == nmbOfTasks[l]-1 && i != nmbOfTasks[indexMaxNmbTask]-1 ) //no handoff performed within observed number of tasks 
 					{
 						for(int a = 0; a < nmbOfTasks.length; a++)
 						{

@@ -1,7 +1,6 @@
 package q1.FuzzyNodeSelection;
 
 import org.apache.commons.math3.distribution.ExponentialDistribution;
-
 import q2.utilities.EdgeNodeTopology;
 import simulationModels.App;
 import simulationModels.Offload;
@@ -13,7 +12,7 @@ public class NavigatorApp {
 		public static void main(String[] args) throws Exception {
 		System.out.println(" Fuzzy - Greedy - Nearest comparison (Q1 Navigator application):");
 				 
-		int iteration = 1000; //100000 //more iterations = higher statistical significance 
+		int iteration = 1000; //100000 //a confidence interval of 95%
 		int discoveredNodes = 20; 
 		if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
 			discoveredNodes += 1;
@@ -108,12 +107,12 @@ public class NavigatorApp {
 		
 			for(int i = 0; i < iteration; i++) 
 			{
-				//creating Application workload for each iteration
+				//creating application workload for each iteration
 				App app = new App(offloadingTasks);		
 				Task[] task  = new Task[offloadingTasks];			 	
 				tasksData =  new ExponentialDistribution(mapSize[l]); 
 				dataSize = tasksData.sample();				
-				int taskIndex = 1; //adding tasks in Application workload 
+				int taskIndex = 1; //adding tasks in application workload 
 				for(int t = 0;  t < offloadingTasks; t++) 
 				{
 					if(taskIndex == 1)
@@ -145,7 +144,7 @@ public class NavigatorApp {
 					app.tasks[t] = task[t];
 				}
 				
-				//choosing an edge node and RT calculation for Fuzzy, Greedy and Nearest approach:
+				//edge node selection and RT calculation for Fuzzy, Greedy and Nearest approach:
 				//Nearest: nearest node = lowest latency
 				nearestNodeSelected = 0;
 				lowestLatency = nodeTopology.nodes[lowerBound].latency;  //defining some default value to be able to make a comparison				 
@@ -189,7 +188,7 @@ public class NavigatorApp {
 				highestBW  = 0; 
 				for(int n = lowerBound; n < higherBound; n++) //find node with highest bandwith 
 				{ 
-					if(highestBW < nodeTopology.nodes[n].bandwidth )  //ako ovdje stavim bw opet dobivam dobre rezultate tj. fuzzy mi bolji ispada.
+					if(highestBW < nodeTopology.nodes[n].bandwidth )  //find node with highest bandwidth (greedy).
 					{
 						 highestBW = nodeTopology.nodes[n].bandwidth;
 						 greedyNodeSelected = n;

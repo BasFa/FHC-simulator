@@ -1,8 +1,6 @@
 package q1.FuzzyNodeSelection;
 
-
 import org.apache.commons.math3.distribution.ExponentialDistribution;
-
 import q2.utilities.EdgeNodeTopology;
 import simulationModels.App;
 import simulationModels.Offload;
@@ -14,7 +12,7 @@ public class FacerecognizerApp {
 		public static void main(String[] args) throws Exception {
 		System.out.println(" Fuzzy - Greedy - Nearest comparison (Q1 Facerecognizer application):");
 			
-		int iteration = 1000; //100000 //more iterations = higher statistical significance 
+		int iteration = 1000; //100000  //a confidence interval of 95%
 		int discoveredNodes = 20; 
 		if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
 			discoveredNodes += 1;
@@ -23,7 +21,7 @@ public class FacerecognizerApp {
 		//creating a topology of all nodes that are going to be used in iterations 
 		System.out.println(" Creating a different node topologies for all the iterations... ");
 		System.out.println(" " + iteration + " iterations are defined and " + discoveredNodes + " nodes are discovered in each iteration. In total " + allCreatedNodes + " nodes are currently generating. ");
-		System.out.println(" This may take some time depending mostly on the defined on the number of iterations... ");
+		System.out.println(" This may take some time depending mostly on the number of iterations defined... ");
 		Topology nodesTopology = new Topology();
 		nodesTopology = EdgeNodeTopology.generateNodesTopology(allCreatedNodes, discoveredNodes);
 		System.out.println(" Different nodes for all iterations are successfully created. ");
@@ -103,12 +101,12 @@ public class FacerecognizerApp {
 			
 			for(int i = 0; i < iteration; i++)  
 			{
-				//creating Application workload for each iteration
+				//creating application workload for each iteration
 				App app = new App(offloadingTasks);	
 				Task[] task  = new Task[offloadingTasks];			 	
 				tasksData =  new ExponentialDistribution(imageSize[l]); 
 				dataSize = tasksData.sample();				
-				int taskIndex = 1; //adding tasks in Application workload 
+				int taskIndex = 1; //adding tasks in application workload 
 				for(int t = 0; t < offloadingTasks; t++) 
 				{
 					if(taskIndex == 1)
@@ -135,7 +133,7 @@ public class FacerecognizerApp {
 					app.tasks[t] = task[t];
 				}				
 				
-				//choosing an edge node and RT calculation for Fuzzy, Greedy and Nearest approach:
+				//edge node selection and RT calculation for Fuzzy, Greedy and Nearest approach:
 				//Nearest: nearest node = lowest latency
 				nearestNodeSelected = 0;
 				lowestLatency = nodesTopology.nodes[lowerBound].latency; //defining some default value to be able to make a comparison			 
@@ -180,7 +178,7 @@ public class FacerecognizerApp {
 				highestBW  = 0; 
 				for(int n = lowerBound; n < higherBound; n++) 
 				{ 
-					if(highestBW < nodesTopology.nodes[n].bandwidth )  //find node with highest bandwidth .
+					if(highestBW < nodesTopology.nodes[n].bandwidth )  //find node with highest bandwidth (greedy).
 					{
 						 highestBW = nodesTopology.nodes[n].bandwidth;
 						 greedyNodeSelected = n;

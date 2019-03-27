@@ -15,7 +15,7 @@ public class ApproachesComparison {
 	public static void main(String[] args) throws Exception {
 			System.out.println(" Fuzzy Handoff Controller - Never Handoff - Always Handoff comparison using Facerecognizer and Navigator application models: ");
 		
-			int iteration = 30000;  //more iterations = higher statistical significance 
+			int iteration = 30000;  //100000  //a confidence interval of 95%
 			int discoveredNodes = 20;	
 			if(discoveredNodes%2 != 0) //even number of nodes - half 3G and half wifi
 				discoveredNodes += 1;
@@ -51,46 +51,47 @@ public class ApproachesComparison {
 			String[] approach = {" Proposed_FuzzyHandoffControl ", " NeverHandoff " ,  " AlwaysHandoff "};
 			int nmbOfApproaches = approach.length;
 			int currentApproach = 0;
-	    	
-	    	ApproachResults oneApproachResults =  new ApproachResults();
-	    	ApproachResults[][] allApproachResults= new ApproachResults[pole.length][nmbOfApproaches];
-	    	
-	    	int[][][] handoffs = new int[pole.length][nmbOfApproaches][nmbOfTasks.length];
-	    	double[][][] appRT = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
-	    	double[][][] monetaryTimeCost = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
-	    	double[][][] handoffsAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; 
-	    	double[][][] appRTaverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
-	    	double[][][] monetaryTimeCostAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
-	    	for(int p = 0; p < pole.length; p++)
-	    	{
-		    	for(int a = 0; a < nmbOfApproaches; a++)
-		    	{   for (int t = 0; t < nmbOfTasks.length; t++)
-			    	{
-		    			handoffs[p][a][t] = 0;
-		    			appRT[p][a][t] = 0;
-		    			monetaryTimeCost[p][a][t] = 0;
-			    	}
-			    }
-	    	}
-	    	for(int p = 0; p < pole.length; p++)
-			{
-		    	for(int a = 0; a < nmbOfApproaches; a++)
-		    	{ 
-		    		allApproachResults[p][a] =  new ApproachResults(handoffs[p][a], appRT[p][a], monetaryTimeCost[p][a] );
-		    	}
-			}
-	    		    
-	    	controlTaskN = new ExponentialDistribution(2);  
-	    	mapsTaskN = new ExponentialDistribution(3);  
-	    	trafficTaskN = new ExponentialDistribution(5);  
-	    	pathTaskN = new ExponentialDistribution(5);  
 			
-	    	findMatchTaskF = new ExponentialDistribution(4);
-	    	initTaskF = new ExponentialDistribution(4); 
-	    	detectFaceTaskF = new ExponentialDistribution(8); 
+			ApproachResults oneApproachResults =  new ApproachResults();
+			ApproachResults[][] allApproachResults= new ApproachResults[pole.length][nmbOfApproaches];
+			
+			int[][][] handoffs = new int[pole.length][nmbOfApproaches][nmbOfTasks.length];
+			double[][][] appRT = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
+			double[][][] monetaryTimeCost = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
+			double[][][] handoffsAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; 
+			double[][][] appRTaverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //milliseconds
+			double[][][] monetaryTimeCostAverage = new double[pole.length][nmbOfApproaches][nmbOfTasks.length]; //minutes 
+			for(int p = 0; p < pole.length; p++)
+			{
+				for(int a = 0; a < nmbOfApproaches; a++)
+				{
+					for (int t = 0; t < nmbOfTasks.length; t++)
+					{
+						handoffs[p][a][t] = 0;
+						appRT[p][a][t] = 0;
+						monetaryTimeCost[p][a][t] = 0;
+					}
+				}
+			}
+			for(int p = 0; p < pole.length; p++)
+			{
+				for(int a = 0; a < nmbOfApproaches; a++)
+				{ 
+					allApproachResults[p][a] =  new ApproachResults(handoffs[p][a], appRT[p][a], monetaryTimeCost[p][a] );
+				}
+			}
+			
+			controlTaskN = new ExponentialDistribution(2);  
+			mapsTaskN = new ExponentialDistribution(3);  
+			trafficTaskN = new ExponentialDistribution(5);  
+			pathTaskN = new ExponentialDistribution(5);  
+			
+			findMatchTaskF = new ExponentialDistribution(4);
+			initTaskF = new ExponentialDistribution(4); 
+			detectFaceTaskF = new ExponentialDistribution(8); 
 		
-	    	try{	
-	    		for(int i = 1; i <= iteration ; i++)
+			try{	
+				for(int i = 1; i <= iteration ; i++)
 				{	
 
 					System.out.println(" Generating an edge node topology... ");		
@@ -217,98 +218,98 @@ public class ApproachesComparison {
 				
 					
 					maxNmbOfTasks = 0;
-			    	indexMaxNmbTask = 0;	  
-			    	for(int l = 0; l < nmbOfTasks.length; l++) //max number of offloadable tasks search
-			    	{
-			    		if(maxNmbOfTasks < nmbOfTasks[l]) 
-			    		{
-			    			maxNmbOfTasks = nmbOfTasks[l];
-			    			indexMaxNmbTask = l;
-			    		}
-				    }
+					indexMaxNmbTask = 0;	  
+					for(int l = 0; l < nmbOfTasks.length; l++) //max number of offloadable tasks search
+					{
+						if(maxNmbOfTasks < nmbOfTasks[l]) 
+						{
+							maxNmbOfTasks = nmbOfTasks[l];
+							indexMaxNmbTask = l;
+						}
+					}
 			    	
-			       	double changeBW[][] = new double[nodesCreated][maxNmbOfTasks];
-			    	double changeCPU[][] = new double[nodesCreated][maxNmbOfTasks];
-			    	double changeLAT[][] = new double[nodesCreated][maxNmbOfTasks]; 
+					double changeBW[][] = new double[nodesCreated][maxNmbOfTasks];
+					double changeCPU[][] = new double[nodesCreated][maxNmbOfTasks];
+					double changeLAT[][] = new double[nodesCreated][maxNmbOfTasks]; 
 			    	
-			    	double bwHigherBound[] = new double[nodesCreated];
-			    	double cpuHigherBound [] = new double[nodesCreated];
+					double bwHigherBound[] = new double[nodesCreated];
+					double cpuHigherBound [] = new double[nodesCreated];
 					
-			    	double bwLowerBound[] = new double[nodesCreated];
-			    	double cpuLowerBound[] = new double[nodesCreated];
-			    	int rangeLowerBound = -1; 
-			    	int rangeHigherBound = 1;	    	 	
-			    	double rangeSize = 2; //calculate as: (rangeSizeLowerBound*rangeSizeLowerBound) + (rangeSizeHigherBound*rangeSizeHigherBound)
-			    	for(int n = 0; n < nodesCreated; n++) 
-			    	{
-			    		rangeLowerBound = -1;
-			    		rangeHigherBound = 1;	
-			    		rangeSize = 2; 
-			    		bwLowerBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		cpuLowerBound[n] = (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		bwHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		cpuHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		while(bwHigherBound[n] < bwLowerBound[n]) //lowerBound[i] must be < then higherBound[i]
-			    		{
-			    			bwHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		}
-			    		while(cpuHigherBound[n] < cpuLowerBound[n]) //lowerBound[i] must be < then higherBound[i]
-			    		{
-			    			cpuHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
-			    		}    			    	    		
-			    		for(int t = 0; t < maxNmbOfTasks; t++)
-			    		{
-			    			if(bwHigherBound[n] == bwLowerBound[n])
-			    			{
-			    				changeBW[n][t] = bwLowerBound[n]; 
-			    			}
-			    			else
-			    			{
-			    				//(bwLowerBound[i] >= 0 && bwHigherBound[i] < 0) can never happen since higherBound[i] is always >= compared to lowerBound[i]
-				    			if( bwLowerBound[n]<0 && bwHigherBound[n] >= 0) //e.g. from -0.7 to 0.3
-				    			{ 
-				    				rangeSize = (bwLowerBound[n]*(-1)) + bwHigherBound[n]; 
-				    			}
-				    			else if(bwLowerBound[n] < 0 && bwHigherBound[n] < 0)//e.g. from -0.7 to -0.3
-				    			{ 
-				    				rangeSize = (bwLowerBound[n]*(-1)) - (bwHigherBound[n]*(-1));
-				    			}
-				    			else //e.g. from 0.6 to 0.9 
-				    			{
-				    				rangeSize = bwHigherBound[n] - bwLowerBound[n];
-				    			}
-				    			changeBW[n][t] = (bwLowerBound[n]) + (double)(Math.random() * rangeSize);
-			    			}	    			
+					double bwLowerBound[] = new double[nodesCreated];
+					double cpuLowerBound[] = new double[nodesCreated];
+					int rangeLowerBound = -1; 
+					int rangeHigherBound = 1;	    	 	
+					double rangeSize = 2; //calculate as: (rangeSizeLowerBound*rangeSizeLowerBound) + (rangeSizeHigherBound*rangeSizeHigherBound)
+					for(int n = 0; n < nodesCreated; n++) 
+					{
+						rangeLowerBound = -1;
+						rangeHigherBound = 1;	
+						rangeSize = 2; 
+						bwLowerBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						cpuLowerBound[n] = (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						bwHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						cpuHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						while(bwHigherBound[n] < bwLowerBound[n]) //lowerBound[i] must be < then higherBound[i]
+						{
+							bwHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						}
+						while(cpuHigherBound[n] < cpuLowerBound[n]) //lowerBound[i] must be < then higherBound[i]
+						{
+							cpuHigherBound[n] =  (rangeLowerBound)+ (double)(Math.random() * rangeSize);
+						}    			    	    		
+						for(int t = 0; t < maxNmbOfTasks; t++)
+						{
+							if(bwHigherBound[n] == bwLowerBound[n])
+							{
+								changeBW[n][t] = bwLowerBound[n]; 
+							}
+							else
+							{
+								//(bwLowerBound[i] >= 0 && bwHigherBound[i] < 0) can never happen since higherBound[i] is always >= compared to lowerBound[i]
+								if( bwLowerBound[n]<0 && bwHigherBound[n] >= 0) //e.g. from -0.7 to 0.3
+								{ 
+									rangeSize = (bwLowerBound[n]*(-1)) + bwHigherBound[n]; 
+								}
+								else if(bwLowerBound[n] < 0 && bwHigherBound[n] < 0)//e.g. from -0.7 to -0.3
+								{ 
+									rangeSize = (bwLowerBound[n]*(-1)) - (bwHigherBound[n]*(-1));
+								}
+								else //e.g. from 0.6 to 0.9 
+								{
+								rangeSize = bwHigherBound[n] - bwLowerBound[n];
+								}
+								changeBW[n][t] = (bwLowerBound[n]) + (double)(Math.random() * rangeSize);
+							}	    			
 			    			
-			    			if(cpuLowerBound[n] == cpuHigherBound[n])
-			    			{
-			    				changeCPU[n][t] = cpuLowerBound[n]; 
-			    			}
-			    			else
-			    			{
-				    			if( cpuLowerBound[n]<0 && cpuHigherBound[n] >= 0)  
-				    			{ 
-				    				rangeSize = (cpuLowerBound[n]*(-1)) + cpuHigherBound[n]; 
-				    			}
-				    			else if(cpuLowerBound[n] < 0 && cpuHigherBound[n] < 0)
-				    			{ 
-				    				rangeSize = (cpuLowerBound[n]*(-1)) - (cpuHigherBound[n]*(-1));
-				    			}
-				    			else
-				    			{
-				    				rangeSize = cpuHigherBound[n] - cpuLowerBound[n];
-				    			}
-				    			changeCPU[n][t] = (cpuLowerBound[n]) + (double)(Math.random() * rangeSize);
-				    		}
-			    			changeLAT[n][t] = (0) + (double)(Math.random() * 1); //increasing the latency as user going further away
-			    		}	    	
-				    }
+							if(cpuLowerBound[n] == cpuHigherBound[n])
+							{
+								changeCPU[n][t] = cpuLowerBound[n]; 
+							}
+							else
+							{
+								if( cpuLowerBound[n]<0 && cpuHigherBound[n] >= 0)  
+								{ 
+									rangeSize = (cpuLowerBound[n]*(-1)) + cpuHigherBound[n]; 
+								}
+								else if(cpuLowerBound[n] < 0 && cpuHigherBound[n] < 0)
+								{ 
+									rangeSize = (cpuLowerBound[n]*(-1)) - (cpuHigherBound[n]*(-1));
+								}
+								else
+								{
+									rangeSize = cpuHigherBound[n] - cpuLowerBound[n];
+								}
+								changeCPU[n][t] = (cpuLowerBound[n]) + (double)(Math.random() * rangeSize);
+							}
+							changeLAT[n][t] = (0) + (double)(Math.random() * 1); //increasing the latency as user going further away
+						}	    	
+					}
 			    	
-			    	for(int p = 0;  p < pole.length; p++)
-			    	{
-			    		currentApproach = 0;
-			    		oneApproachResults = FuzzyHandoffController.execution(nodesCreated, app, nodeTopologySetup,  pole[p], desiredRT, changeBW, changeCPU, changeLAT, discoveredNodes, nmbOfTasks, indexMaxNmbTask);
-			    		for (int t= 0 ; t < nmbOfTasks.length ; t++)
+					for(int p = 0;  p < pole.length; p++)
+					{
+						currentApproach = 0;
+						oneApproachResults = FuzzyHandoffController.execution(nodesCreated, app, nodeTopologySetup,  pole[p], desiredRT, changeBW, changeCPU, changeLAT, discoveredNodes, nmbOfTasks, indexMaxNmbTask);
+						for (int t= 0 ; t < nmbOfTasks.length ; t++)
 						{
 							allApproachResults[p][currentApproach].handoffs[t] = allApproachResults[p][currentApproach].handoffs[t] + oneApproachResults.handoffs[t];
 							allApproachResults[p][currentApproach].appRT[t] = allApproachResults[p][currentApproach].appRT[t] + oneApproachResults.appRT[t];
@@ -332,7 +333,7 @@ public class ApproachesComparison {
 						}
 						currentApproach++;
 		
-			    	}	
+					}	
 					System.out.println(" End of iteration: " + i);			
 				}//("end of iteration"); 
 				
@@ -343,12 +344,12 @@ public class ApproachesComparison {
 					for(int a = 0; a < nmbOfApproaches; a++)
 					{   
 						for (int t = 0; t < nmbOfTasks.length; t++)
-				    	{
-			    			handoffsAverage[p][a][t] = (double)((double)allApproachResults[p][a].handoffs[t] / (double)iteration);	 
-			    			appRTaverage[p][a][t] = (double)((double)allApproachResults[p][a].appRT[t] / (double)iteration);
-			    			monetaryTimeCostAverage[p][a][t] = (double)((double)allApproachResults[p][a].monetaryCost[t] / (double)iteration);
-				    	}
-				    }
+						{
+							handoffsAverage[p][a][t] = (double)((double)allApproachResults[p][a].handoffs[t] / (double)iteration);	 
+							appRTaverage[p][a][t] = (double)((double)allApproachResults[p][a].appRT[t] / (double)iteration);
+							monetaryTimeCostAverage[p][a][t] = (double)((double)allApproachResults[p][a].monetaryCost[t] / (double)iteration);
+						}
+					}
 				}		
 				for(int p = 0; p < pole.length; p++)
 				{
@@ -359,14 +360,14 @@ public class ApproachesComparison {
 					}
 				}
 			  }
-	     catch(ArrayIndexOutOfBoundsException e){
-	    	 System.out.println(" Please, make sure the number of created nodes in topology is high enough to cover Always Handoff approach. ");
-	     }
-	     catch(Exception e){
-	        System.out.println(" Please try again. ");
-	     }
+				catch(ArrayIndexOutOfBoundsException e){
+				System.out.println(" Please, make sure the number of created nodes in topology is high enough to cover Always Handoff approach. ");
+			}
+			catch(Exception e){
+			System.out.println(" Please try again. ");
+		}
 		
-		 System.out.println("end of execution"); 
+		System.out.println("end of execution"); 
 			
   }
 		
